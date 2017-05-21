@@ -13,7 +13,7 @@ import shutil
 import tarfile
 import platform, glob
 
-import sergeant, utils
+from . import sergeant, utils
 
 #
 # compatibility with python2.4
@@ -289,7 +289,7 @@ class Roller:
 					loader.path + " ")
                 f.write(swf.path + ".orig $@\n")
                 f.close()
-                os.chmod(dest_path, 0755)
+                os.chmod(dest_path, 0o755)
             else:
                 if use_remapping:
                     tmp_path = remapper_rpm_tmp_dir + os.path.dirname(swf.path)

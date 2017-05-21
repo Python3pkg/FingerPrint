@@ -36,19 +36,19 @@ def formatUintHex16(value):
     """
     Format an 16 bits unsigned integer.
     """
-    return u"0x%04x" % value
+    return "0x%04x" % value
 
 def formatUintHex32(value):
     """
     Format an 32 bits unsigned integer.
     """
-    return u"0x%08x" % value
+    return "0x%08x" % value
 
 def formatUintHex64(value):
     """
     Format an 64 bits unsigned integer.
     """
-    return u"0x%016x" % value
+    return "0x%016x" % value
 
 def int2uint32(value):
     """
@@ -89,13 +89,13 @@ def formatAddress(address):
     if address:
         return formatWordHex(address)
     else:
-        return u"NULL"
+        return "NULL"
 
 def formatAddressRange(start, end):
     """
     Format an address range, eg. "0x80004000-0x8000ffff".
     """
-    return u"%s-%s" % (formatWordHex(start), formatWordHex(end))
+    return "%s-%s" % (formatWordHex(start), formatWordHex(end))
 
 def ntoh_ushort(value):
     """

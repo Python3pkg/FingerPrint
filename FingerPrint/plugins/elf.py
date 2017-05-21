@@ -7,7 +7,7 @@
 
 import os
 from subprocess import PIPE, Popen
-import StringIO
+import io
 import re
 import logging
 import string

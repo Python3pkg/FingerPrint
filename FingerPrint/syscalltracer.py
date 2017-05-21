@@ -227,7 +227,7 @@ class SyscallTracer:
     def test(self):
         a = {}
         self.main(["bash", "-c", "sleep 5 > /dev/null & find /tmp > /dev/null &"], a)
-        print "dict: ", a
+        print("dict: ", a)
 
 
 

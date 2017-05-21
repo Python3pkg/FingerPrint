@@ -46,7 +46,7 @@ class PluginMount(type):
         return cls.plugins
 
 
-class PluginManager(object):
+class PluginManager(object, metaclass=PluginMount):
     """
     Super class of the various plugins. All plugins should inherit from
     this class.
@@ -62,8 +62,6 @@ class PluginManager(object):
                 with the dependency set if the plugin can handle the file
 
     """
-
-    __metaclass__ = PluginMount
     systemPath = []
     """list of string containing the paths we should look for dependencies"""
 
@@ -115,7 +113,7 @@ class PluginManager(object):
         if os.path.exists(fileName) and not \
 		FingerPrint.sergeant.is_special_folder(fileName):
             #we call all the getSwirl method of all the plugin
-            for key, plugin in self.plugins.iteritems():
+            for key, plugin in self.plugins.items():
                 temp = plugin.getSwirl(fileName, swirl, env)
                 if temp != None:
                     return temp

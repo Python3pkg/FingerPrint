@@ -40,12 +40,12 @@ class TestSequenceFunctions(unittest.TestCase):
 
 
     def test_plugin(self):
-        print "\n     -----------------------     Testing pluging manager via API  -------------------------\n"
+        print("\n     -----------------------     Testing pluging manager via API  -------------------------\n")
         self.swirl = Swirl("test", datetime.now())
         for i in self.files:
             swirlFile = FingerPrint.plugins.PluginManager.getSwirl(i, self.swirl)
         p = FingerPrint.plugins.PluginManager.get_plugins()
-        print "plugins: ", p
+        print("plugins: ", p)
         self.assertEqual(len(p), self.availablePlugin,
             msg="Plugin manager did not load all the available plugins (available %d, detected %d) " 
             % (len(p) , self.availablePlugin) )
@@ -58,21 +58,21 @@ class TestSequenceFunctions(unittest.TestCase):
 
 
     def test_calltracer(self):
-        print "\n     -----------------------     Running fingerprint syscall tracer   -------------------------\n"
+        print("\n     -----------------------     Running fingerprint syscall tracer   -------------------------\n")
         testProgram = ["bash","-c","find /tmp &> /dev/null "]
         try:
             from FingerPrint.syscalltracer import SyscallTracer
-        except ImportError, e:
-            print "SyscallTracer is not support on this python version: ", str(e)
+        except ImportError as e:
+            print("SyscallTracer is not support on this python version: ", str(e))
             return
         tracer = SyscallTracer()
         self.assertTrue(tracer.main(testProgram), 
                 msg="fingerprint-calltracer: failed tracing: " + str(testProgram))
         deps =  FingerPrint.syscalltracer.TracerControlBlock.dependencies
-        print "deps ", deps
-        self.assertEqual(len(deps.keys()),2,
+        print("deps ", deps)
+        self.assertEqual(len(list(deps.keys())),2,
                 msg="fingerprint-calltracer: failed: traced more than two binaries")
-        print "Executed: ", testProgram, "\nFound dependencies: ", deps
+        print("Executed: ", testProgram, "\nFound dependencies: ", deps)
         #lets create a command wtih input file on the command line with default output filename
         outputfilename='output.swirl'
         command = 'bash -c "find /tmp &> /dev/null "'
@@ -92,7 +92,7 @@ class TestSequenceFunctions(unittest.TestCase):
     def test_commandline(self):
         """ """
         #test empty command line
-        print "\n     -----------------------     Running fingerprint command line   -------------------------\n"
+        print("\n     -----------------------     Running fingerprint command line   -------------------------\n")
         self.assertNotEqual(subprocess.call(['python', './bin/fingerprint']), 0,
             msg="fingerprint: empty command line should fail but it did not")
         #lets create a command wtih input file on the command line with default output filename
@@ -135,12 +135,12 @@ class TestSequenceFunctions(unittest.TestCase):
 
     def test_predefinedBinaries(self):
         #that how we get the platform name
-        print "\n     -----------------------     Running fingerprint on predefined set of files   -------------------------\n"
+        print("\n     -----------------------     Running fingerprint on predefined set of files   -------------------------\n")
         import platform
         dist = platform.dist()
         arch = platform.machine()
         platformname = dist[0] + "_" + dist[1] + "_" + arch
-        print "System path is: ", platformname
+        print("System path is: ", platformname)
         basedir = os.path.dirname( globals()["__file__"] )
         basedir += '/files/'
         testPlatforms = os.listdir(basedir)

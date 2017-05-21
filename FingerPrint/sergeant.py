@@ -9,8 +9,8 @@
 
 import os, string, stat
 
-from swirl import Swirl
-import utils
+from .swirl import Swirl
+from . import utils
 from FingerPrint.plugins import PluginManager
 from FingerPrint.serializer import PickleSerializer
 
@@ -263,7 +263,7 @@ class Sergeant:
         retDict = {}
         (output, retval) = utils.getOutputAsList(["bash", "-c", "module -t avail 2>&1"])
         if retval:
-            print "Unable to run module command, verify it\'s in the path."
+            print("Unable to run module command, verify it\'s in the path.")
             return ""
         for module in output :
             # in the output there are some paths! remove them e.g. "/opt/module/blabla:"

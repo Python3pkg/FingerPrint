@@ -472,7 +472,7 @@ class SwirlFile(Arch):
         else:
             transformList = self.staticDependencies
         for i in transformList:
-            if i.major not in retDict.keys():
+            if i.major not in list(retDict.keys()):
                 retDict[i.major] = []
             if i not in retDict[i.major]:
                 retDict[i.major].append(i)
@@ -520,8 +520,8 @@ class SwirlFile(Arch):
             for e in self.env:
                 retString += separator + "    " + e + "\n"
         if self.type not in "Data":
-            retString += separator + "    Deps: " + string.join(self.getDependenciesDict().keys(), ', ') + "\n"
-            retString += separator + "    Provs: " + string.join(self.getProvidesDict().keys(), ', ') + "\n"
+            retString += separator + "    Deps: " + string.join(list(self.getDependenciesDict().keys()), ', ') + "\n"
+            retString += separator + "    Provs: " + string.join(list(self.getProvidesDict().keys()), ', ') + "\n"
         return retString
 
 

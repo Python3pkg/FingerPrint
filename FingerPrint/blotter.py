@@ -26,8 +26,8 @@ except ImportError:
 if "any" not in dir(__builtins__):
     from FingerPrint.utils import any
 
-from swirl import Swirl, SwirlFile
-import sergeant, utils
+from .swirl import Swirl, SwirlFile
+from . import sergeant, utils
 from FingerPrint.plugins import PluginManager
 from FingerPrint.utils import getOutputAsList
 
@@ -98,7 +98,7 @@ class Blotter:
             else:
                 return os.path.normpath(os.getcwd() + '/' + path)
         fileList = [ norm_path(f) for f in fileList ]
-        fileList = fileList + dynamicDependecies.keys()
+        fileList = fileList + list(dynamicDependecies.keys())
         # add all the fileList to the swirl and figure out all their static libraries
         for binPath in fileList:
             if os.path.isfile(binPath):
@@ -135,7 +135,7 @@ class Blotter:
         #
         # we might need to add the dynamic dependencies to the swirl
         # if they did not get detected already
-        for fileName in dynamicDependecies.keys():
+        for fileName in list(dynamicDependecies.keys()):
             swirlFile = PluginManager.getSwirl(fileName, self.swirl)
             #let's add it to the execed file list
             if swirlFile not in self.swirl.execedFiles:
@@ -208,7 +208,7 @@ class Blotter:
         try:
             if not tracer.main(execcmd):
                 raise IOError("Unable to trace the process")
-        except ImportError, e:
+        except ImportError as e:
             raise IOError("Dynamic tracing is not supported on this platform (you need "
                     "python2.7 or ctype for dynamic tracing): ", e)
 

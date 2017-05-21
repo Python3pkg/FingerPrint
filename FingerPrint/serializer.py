@@ -7,7 +7,7 @@
 # 
 
 from datetime import datetime
-import StringIO
+import io
 import pickle
 
 """
